@@ -22,6 +22,5 @@ HEADERS +=     tst_test1.h \
 
 SOURCES +=     main.cpp \
     ../app/myfunc.c
-    ../app/korni.c
 
 INCLUDEPATH += ../app
