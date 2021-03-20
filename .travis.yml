@@ -1,27 +1,30 @@
+os: linux
+dist: xenial
 
-language: cpp
-
-compiler:
-  - gcc
-
-# request for Ubuntu 14.04 Trusty VM
-sudo: true
-dist: trusty
+language:
+  - cpp
 
 before_install:
   - pip install --user cpp-coveralls
 
-# scripts to run before build
-before_script:
-  - mkdir build
-  - cd build
-  - cmake -DCMAKE_BUILD_TYPE=Debug ..
+addons:
+  sonarcloud:
+    organization: "seekerk-github"
 
-# build and run tests (ie make & make test)
 script:
-  - cmake --build .
-  - ctest --verbose --output-on-failure
+  - qmake
+  - make
+  - ./tests/tests
 
-# generate and publish GCov coveralls results
 after_success:
-  - coveralls --root .. --verbose --exclude-pattern ".*feature_tests.*" --exclude-pattern ".*CompilerId.*" --gcov-options '\-lp'
+  - coveralls --root . -E ".*external.*" -E ".*tests.*"
+  - build-wrapper-linux-x86-64 --out-dir bw-output make clean all
+  - sonar-scanner
+
+cache:
+  directories:
+  - '$HOME/.m2/repository'
+  - '$HOME/.sonar/cache'
+
+notifications:
+  email: false
