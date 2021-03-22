@@ -34,4 +34,5 @@ TEST(korniTestNegative, x2andx1empty) {
     ASSERT_EQ(f(0, 0, 1), INFINITY);
 
 }
+
 #endif // KORNI_H
