@@ -8,30 +8,42 @@ extern "C" {
 }
 
 TEST(korniTest, usuall_diskr_zero) {
-    ASSERT_EQ(f(1, 2, 1), -1);
-
+cor korni = f(1,2,1);
+ASSERT_EQ( -1, korni.x1);
+ASSERT_EQ(  1, korni.count);
 }
 TEST(korniTest, nokoren) {
-    ASSERT_EQ(f(1, 2, 100), INFINITY);
+cor korni = f(1,2,100);
+ASSERT_EQ( 0 , korni.count);
 }
 
 TEST(korniTest, twokoren) {
-    double d[2] = {0, 1};
-    ASSERT_EQ(f(1,-1, 0), *d);
-}
-TEST(korniTestNegative, x2empty) {
-    ASSERT_EQ(f(0, 1, 1), -1);
-
+cor korni = f(1,-1,0);
+ASSERT_EQ(0, korni.x1);
+ASSERT_EQ(1, korni.x2);
+ASSERT_EQ(2, korni.count);
 }
 
-TEST(korniTestNegative, xempty) {
-    double d[2] = {-1, 1};
-    ASSERT_EQ(f(5, 0, -5), *d);
-
+TEST(korniTestNegative, A_empty) {
+cor korni = f(0,1,1);
+ASSERT_EQ(-1, korni.x1);
+ASSERT_EQ( 1, korni.count);
 }
 
-TEST(korniTestNegative, x2andx1empty) {
-    ASSERT_EQ(f(0, 0, 1), INFINITY);
+TEST(korniTestNegative, B_empty) {
+cor korni = f(5,0,-5);
+ASSERT_EQ(-1, korni.x1);
+ASSERT_EQ( 1, korni.x2);
+ASSERT_EQ(2, korni.count);
+}
 
+TEST(korniTestNegative, A_and_B_empty) {
+cor korni = f(0,0,1);
+ASSERT_EQ(0, korni.count);
+}
+
+TEST(korniTestNegative, allempty) { //означает, что корней бесконечно много - а значит count - INF (причем бесконечность "с точкой" (double))
+cor korni = f(0,0,0);
+ASSERT_EQ(FP_INFINITE, korni.count);
 }
 #endif // KORNI_H
