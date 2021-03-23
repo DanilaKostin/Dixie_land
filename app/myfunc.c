@@ -28,43 +28,54 @@ int fibonachi(int num) {
 }
 
 
-double f(int a,int b,int c)
+cor f(int a,int b,int c)
 {
-
-double d,x1 = 0,x2 = 0, t[2];
+cor korni;
+double d;
 d =(b*b)-4*a*c;
     if (d>0)
 {
     if (a==0)
     {
-        x1 = (-c)/(b);
-        return x1;
+        korni.x1 = (-c)/(b);
+        korni.count = 1;
+        return korni;
     }
-    x1=(-b+sqrt(d))/(2*a);
-    x2=(-b-sqrt(d))/(2*a);
-    if (x1 > x2)
+    korni.x1=(-b+sqrt(d))/(2*a);
+    korni.x2=(-b-sqrt(d))/(2*a);
+    korni.count = 2;
+    if (korni.x1 > korni.x2) //сортируем корни
     {
         double r;
-        r = x2;
-        x2 = x1;
-        x1 = r;
+        r = korni.x2;
+        korni.x2 = korni.x1;
+        korni.x1 = r;
     }
-
-    t[0] = x1; t[1] = x2;
-    return *t;
+    return korni;
 }
     if (d<0)
 {
-    return INFINITY;
+    korni.count = 0;
 }
     if (d==0)
     {
-        if (a==0 && b==0)
-            return INFINITY;
-        x1=(-b)/(2*a);
-        return x1;
+        if (a==0 && b==0 && c!=0)
+        {
+            korni.count = 0;
+            return korni ;
+        } else
+            if (a== 0 && b==0 && c==0)
+            {
+                   korni.count = FP_INFINITE;
+                    return korni;
+            }
+        korni.x1=(-b)/(2*a);
+        korni.count = 1;
+        return korni;
    }
-    return -777;
+return korni;
 }
+
+
 
 
