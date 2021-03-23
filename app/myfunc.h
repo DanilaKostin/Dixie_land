@@ -4,6 +4,10 @@
 int myfunc(int b);
 
 int fibonachi(int num);
+typedef struct kor{
+    double x1 ,x2;
+    int count;
+}cor;
 
-double f(int a, int b, int c);
+cor f(int a, int b, int c);
 #endif // MYFUNC_H
